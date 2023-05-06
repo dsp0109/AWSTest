@@ -1,0 +1,222 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceJob\\SQS_ServiceJob.csproj": {}
+  },
+  "projects": {
+    "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceJob\\SQS_ServiceJob.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceJob\\SQS_ServiceJob.csproj",
+        "projectName": "SQS_ServiceJob",
+        "projectPath": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceJob\\SQS_ServiceJob.csproj",
+        "packagesPath": "C:\\Users\\dnyaneshwar.pawar\\.nuget\\packages\\",
+        "outputPath": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceJob\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\dnyaneshwar.pawar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\TFS\\ici-platform\\src\\PackagesSource": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceLib\\SQS_ServiceLib.csproj": {
+                "projectPath": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceLib\\SQS_ServiceLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AWSSDK.S3": {
+              "target": "Package",
+              "version": "[3.7.104.11, )"
+            },
+            "AWSSDK.SQS": {
+              "target": "Package",
+              "version": "[3.7.101, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceLib\\SQS_ServiceLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceLib\\SQS_ServiceLib.csproj",
+        "projectName": "SQS_ServiceLib",
+        "projectPath": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceLib\\SQS_ServiceLib.csproj",
+        "packagesPath": "C:\\Users\\dnyaneshwar.pawar\\.nuget\\packages\\",
+        "outputPath": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceLib\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\dnyaneshwar.pawar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\TFS\\ici-platform\\src\\PackagesSource": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceModel\\SQS_ServiceModel.csproj": {
+                "projectPath": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceModel\\SQS_ServiceModel.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AWSSDK.S3": {
+              "target": "Package",
+              "version": "[3.7.104.11, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceModel\\SQS_ServiceModel.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceModel\\SQS_ServiceModel.csproj",
+        "projectName": "SQS_ServiceModel",
+        "projectPath": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceModel\\SQS_ServiceModel.csproj",
+        "packagesPath": "C:\\Users\\dnyaneshwar.pawar\\.nuget\\packages\\",
+        "outputPath": "C:\\TFS\\OTHER APPLICATIONS\\SQS_Service\\SQS_ServiceModel\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\dnyaneshwar.pawar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\TFS\\ici-platform\\src\\PackagesSource": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AWSSDK.SQS": {
+              "target": "Package",
+              "version": "[3.7.101, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
