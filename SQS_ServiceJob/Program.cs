@@ -26,7 +26,7 @@ builder.Services.AddSingleton<IAmazonSQS>(x => {
 builder.Services.AddSingleton<IAmazonS3>(x =>
 {
     var credentials = new BasicAWSCredentials(Convert.ToString(builder.Configuration.GetValue(typeof(string), "AWSCred:AccessKey")), Convert.ToString(builder.Configuration.GetValue(typeof(string), "AWSCred:Secret")));
-    return new AmazonS3Client(credentials, RegionEndpoint.GetBySystemName(Convert.ToString(builder.Configuration.GetValue(typeof(string), "AWSCred:OutboundS3Bucket:Region"))));
+    return new AmazonS3Client(credentials, RegionEndpoint.GetBySystemName(Convert.ToString(builder.Configuration.GetValue(typeof(string), "AWSCred:S3Bucket:Region"))));
 });
 builder.Services.AddTransient<IProcessFile, ProcessFile>();
 builder.Services.AddScoped<FileType1Handler>();

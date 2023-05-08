@@ -1,6 +1,7 @@
 ﻿using Amazon.SQS;
 using Amazon.SQS.Model;
 using SQS_ServiceLib.BusinessLogic;
+using System.Text;
 
 namespace SQS_ServiceJob.Jobs
 {
@@ -11,6 +12,7 @@ namespace SQS_ServiceJob.Jobs
         private readonly ILogger<OutboundMessageWatcherJob> _logger;
         private readonly string? _queueName;
         private readonly string? _outboundS3BucketName;
+        private readonly string? _inboundS3BucketName;
         private readonly IProcessFile _processFile;
 
         public OutboundMessageWatcherJob(IAmazonSQS sqs, IConfiguration config, ILogger<OutboundMessageWatcherJob> logger, IProcessFile processFile)
@@ -19,7 +21,8 @@ namespace SQS_ServiceJob.Jobs
             _config = config;
             _logger = logger;
             _queueName = Convert.ToString(_config!.GetValue(typeof(string), "AWSCred:OutboundSQS:QueueName"));
-            _outboundS3BucketName = Convert.ToString(_config!.GetValue(typeof(string), "AWSCred:OutboundS3Bucket:BucketName"));
+            _outboundS3BucketName = Convert.ToString(_config!.GetValue(typeof(string), "AWSCred:S3Bucket:OutboundBucketName"));
+            _inboundS3BucketName = Convert.ToString(_config!.GetValue(typeof(string), "AWSCred:S3Bucket:InboundBucketName"));
             _processFile = processFile;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -51,7 +54,12 @@ namespace SQS_ServiceJob.Jobs
                             continue;
                         }
                         var fileProcessingResult = await _processFile.ProcessFileData(fileDetails);
-                        await _sqs.DeleteMessageAsync(queryUrl.QueueUrl, message.ReceiptHandle, stoppingToken);
+                        if (fileProcessingResult)
+                        {
+                            await _processFile.UploadFile(_inboundS3BucketName!, new MemoryStream(Encoding.UTF8.GetBytes(fileDetails!.FileContent)), fileDetails.FileName, stoppingToken);
+                            await _sqs.DeleteMessageAsync(queryUrl.QueueUrl, message.ReceiptHandle, stoppingToken);
+                        }
+                        
                         #endregion 
                     }
                 }

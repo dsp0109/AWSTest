@@ -1,4 +1,5 @@
 ﻿using Amazon.S3;
+using Amazon.S3.Model;
 using Amazon.S3.Util;
 using Microsoft.Extensions.DependencyInjection;
 using SQS_ServiceLib.Handler;
@@ -63,8 +64,30 @@ namespace SQS_ServiceLib.BusinessLogic
         {
             using var scope = _serviceScopeFactory.CreateScope();
             var fileHandler = _handlers[fileDetails.Type](scope.ServiceProvider);
+            
             await fileHandler.HandleAsync(fileDetails.FileContent);
+
             return await Task.FromResult<bool>(true);
+        }
+
+        public async Task<bool> UploadFile(string bucketName, Stream fileStream, string fileName, CancellationToken cancellationToken)
+        {
+            var bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, bucketName);
+            if (!bucketExists) throw new FileNotFoundException($"Bucket not found in bucket {bucketName}");
+            var request = new PutObjectRequest()
+            {
+                BucketName = bucketName,
+                Key = $"{fileName}_reply.xml",
+                InputStream = fileStream
+            };
+            
+            var uploadResult = await _s3Client.PutObjectAsync(request);
+
+            if(uploadResult == null || uploadResult.HttpStatusCode != System.Net.HttpStatusCode.OK ) { 
+                return await Task.FromResult(false);
+            }
+
+            return await Task.FromResult(true);
         }
 
         private FileType? GetFileTypeFromName(string fileName)
