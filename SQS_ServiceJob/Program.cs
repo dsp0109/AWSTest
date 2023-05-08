@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using SQS_ServiceJob.Filters;
 using SQS_ServiceJob.Jobs;
 using SQS_ServiceLib.BusinessLogic;
+using SQS_ServiceLib.Handler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,9 @@ builder.Services.AddSingleton<IAmazonS3>(x =>
     var credentials = new BasicAWSCredentials(Convert.ToString(builder.Configuration.GetValue(typeof(string), "AWSCred:AccessKey")), Convert.ToString(builder.Configuration.GetValue(typeof(string), "AWSCred:Secret")));
     return new AmazonS3Client(credentials, RegionEndpoint.GetBySystemName(Convert.ToString(builder.Configuration.GetValue(typeof(string), "AWSCred:OutboundS3Bucket:Region"))));
 });
-builder.Services.AddSingleton<IProcessFile, ProcessFile>();
+builder.Services.AddTransient<IProcessFile, ProcessFile>();
+builder.Services.AddScoped<FileType1Handler>();
+builder.Services.AddScoped<FileType2Handler>();
 
 var app = builder.Build();
 

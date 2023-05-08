@@ -24,12 +24,12 @@ namespace SQS_ServiceJob.Jobs
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            try 
+            try
             {
                 var queryUrl = await _sqs.GetQueueUrlAsync(_queueName, stoppingToken);
                 var receiveMessageRequest = new ReceiveMessageRequest
                 {
-                    QueueUrl = queryUrl.QueueUrl
+                    QueueUrl = queryUrl.QueueUrl,
                 };
 
                 while (!stoppingToken.IsCancellationRequested)
@@ -37,24 +37,30 @@ namespace SQS_ServiceJob.Jobs
                     var messageResponse = await _sqs.ReceiveMessageAsync(receiveMessageRequest, stoppingToken);
                     if (messageResponse == null || messageResponse.HttpStatusCode != System.Net.HttpStatusCode.OK)
                     {
-                        _logger.LogInformation("Failed with not ok response.");
+                        _logger.LogInformation($"{nameof(OutboundMessageWatcherJob)} Failed with not ok response.");
                         continue;
                     }
 
                     foreach (var message in messageResponse!.Messages)
                     {
-                        var fileStream = await _processFile.GetFileData(_outboundS3BucketName!, message.Body, stoppingToken);
-                        var fileProcessingResult = await _processFile.ProcessFileData(fileStream); 
-                        //Console.WriteLine(message.Body);
+                        #region File Processing 
+                        var fileDetails = await _processFile.GetFileData(_outboundS3BucketName!, message.Body, stoppingToken);
+                        if (fileDetails == null)
+                        {
+                            _logger.LogInformation($"{nameof(OutboundMessageWatcherJob)} File is not supported for processing.");
+                            continue;
+                        }
+                        var fileProcessingResult = await _processFile.ProcessFileData(fileDetails);
                         await _sqs.DeleteMessageAsync(queryUrl.QueueUrl, message.ReceiptHandle, stoppingToken);
+                        #endregion 
                     }
                 }
-            } 
-            catch(Exception ex) 
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"{nameof(OutboundMessageWatcherJob)} failed processing with error {ex.Message}", ex);
                 await Task.FromException(ex);
-            } 
+            }
         }
     }
 }

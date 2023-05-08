@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[3.7.104.11, )"
             },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.5, )"

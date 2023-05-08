@@ -1,9 +1,11 @@
-﻿namespace SQS_ServiceLib.BusinessLogic
+﻿using SQS_ServiceModel;
+
+namespace SQS_ServiceLib.BusinessLogic
 {
     public interface IProcessFile
     {
-        Task<bool> ProcessFileData(string fileData);
+        Task<bool> ProcessFileData(FileDetails fileDetails);
 
-        Task<string> GetFileData(string bucketName, string fileName, CancellationToken cancellationToken);
+        Task<FileDetails?> GetFileData(string bucketName, string fileName, CancellationToken cancellationToken);
     }
 }
