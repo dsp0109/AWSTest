@@ -9,10 +9,17 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.7.104.11" />
     <PackageReference Include="AWSSDK.SQS" Version="3.7.101" />
+    <PackageReference Include="Hangfire" Version="1.8.0" />
+    <PackageReference Include="Hangfire.Core" Version="1.8.0" />
+    <PackageReference Include="Hangfire.InMemory" Version="0.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SQS_ServiceLib\SQS_ServiceLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>

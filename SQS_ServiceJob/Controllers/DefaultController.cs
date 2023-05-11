@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SQS_ServiceLib.BusinessLogic;
 
 namespace SQS_ServiceJob.Controllers
 {
@@ -7,10 +8,11 @@ namespace SQS_ServiceJob.Controllers
     public class DefaultController : ControllerBase
     {
         private readonly ILogger<DefaultController> _logger;
-
-        public DefaultController(ILogger<DefaultController> logger)
+        private readonly IMasterdataProcessor _masterdataProcessor;
+        public DefaultController(ILogger<DefaultController> logger, IMasterdataProcessor masterdataProcessor)
         {
             _logger = logger;
+            _masterdataProcessor = masterdataProcessor;
         }
 
         [HttpGet]

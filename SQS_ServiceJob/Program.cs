@@ -2,8 +2,9 @@ using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.SQS;
-using Microsoft.AspNetCore.Mvc.Filters;
+using Hangfire;
 using SQS_ServiceJob.Filters;
+using SQS_ServiceJob.Health;
 using SQS_ServiceJob.Jobs;
 using SQS_ServiceLib.BusinessLogic;
 using SQS_ServiceLib.Handler;
@@ -17,7 +18,9 @@ builder.Services.AddControllers(option =>
     option.Filters.Add<UnhandledExceptionFilterAttribute>();
 });
 
-builder.Services.AddHostedService<OutboundMessageWatcherJob>();
+//builder.Services.AddHostedService<OutboundMessageWatcherJob>();
+//builder.Services.AddHostedService<MasterdataSchedulerJobWithHF>();
+builder.Services.AddHostedService<MasterdataSchedulerJobNormal>();
 
 builder.Services.AddSingleton<IAmazonSQS>(x => {
     var credentials = new BasicAWSCredentials(Convert.ToString(builder.Configuration.GetValue(typeof(string), "AWSCred:AccessKey")), Convert.ToString(builder.Configuration.GetValue(typeof(string), "AWSCred:Secret")));
@@ -32,7 +35,19 @@ builder.Services.AddTransient<IProcessFile, ProcessFile>();
 builder.Services.AddScoped<FileType1Handler>();
 builder.Services.AddScoped<FileType2Handler>();
 
+builder.Services.AddHangfire(confg => confg.UseInMemoryStorage()
+                                           .UseRecommendedSerializerSettings());
+builder.Services.AddHangfireServer();
+builder.Services.AddTransient<IMasterdataProcessor, MasterdataProcessor>();
+builder.Services.AddScoped<CatelogFileHandler>();
+
+builder.Services.AddHealthChecks().AddCheck<MonitorHealth>("MonitorHealth");
+
 var app = builder.Build();
+
+app.UseHangfireDashboard();
+app.MapHangfireDashboard();
+app.MapHealthChecks("/healthz");
 
 // Configure the HTTP request pipeline.
 
