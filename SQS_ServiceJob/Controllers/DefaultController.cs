@@ -18,7 +18,7 @@ namespace SQS_ServiceJob.Controllers
         [HttpGet]
         public async Task<string> Get()
         {
-            _logger.LogDebug("Service Started...");
+            _logger.LogInformation("Service Started...");
             return await Task.FromResult("Service Running...");
         }
     }

@@ -18,7 +18,7 @@ namespace SQS_ServiceJob.Jobs
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             await DoWork();
-            using PeriodicTimer timer = new(TimeSpan.FromMinutes(30));
+            using PeriodicTimer timer = new(TimeSpan.FromMinutes(2));
             try
             {
                 while (await timer.WaitForNextTickAsync(stoppingToken))

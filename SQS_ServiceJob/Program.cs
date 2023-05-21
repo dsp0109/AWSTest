@@ -3,6 +3,7 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.SQS;
 using Hangfire;
+using Serilog;
 using SQS_ServiceJob.Filters;
 using SQS_ServiceJob.Health;
 using SQS_ServiceJob.Jobs;
@@ -17,6 +18,11 @@ builder.Services.AddControllers(option =>
 {
     option.Filters.Add<UnhandledExceptionFilterAttribute>();
 });
+
+// Serilogger
+var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).Enrich.FromLogContext().CreateLogger();
+//builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 //builder.Services.AddHostedService<OutboundMessageWatcherJob>();
 //builder.Services.AddHostedService<MasterdataSchedulerJobWithHF>();

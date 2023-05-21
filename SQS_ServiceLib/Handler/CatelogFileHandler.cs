@@ -1,9 +1,7 @@
-﻿using SQS_ServiceModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using SQS_ServiceModel;
+using SQS_ServiceModel.MasterdataXMLModel;
+using System.Data;
 
 namespace SQS_ServiceLib.Handler
 {
@@ -22,7 +20,42 @@ namespace SQS_ServiceLib.Handler
             // 2. Do Some mssaging on the data
             // 3. Convert data to XML
             // 4. create and upload XML file on s3 blob
+            GenerateFile();
             await Task.CompletedTask;
+        }
+
+        public void GenerateFile()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add(new DataColumn("Name"));
+            dt.Columns.Add(new DataColumn("Number"));
+            dt.Columns.Add(new DataColumn("Address"));
+
+            dt.Rows.Add("DP",12, "251-1A CA");
+            dt.Rows.Add("DP1", 122, "251-1A CA1");
+
+            //var serializer = dt.AsEnumerable().ToList().Select(x => new 
+            //{ 
+            //    Header = new 
+            //        { 
+            //            Name = x.Field<string?>("Name"), 
+            //            Number = x.Field<string?>("Number")
+            //        }, 
+            //    Address = x.Field<string?>("Address") 
+            //}).ToList();
+            var serializer = dt.AsEnumerable().ToList().Select(x => new CatelogXML {
+                SRN = "12562",
+                Name = x.Field<string?>("Name"),
+                Number = x.Field<string?>("Number"),
+                Address = x.Field<string?>("Address")
+            });
+
+            foreach(var itm in serializer)
+            {
+                var xmlDocument = JsonConvert.DeserializeXmlNode(JsonConvert.SerializeObject(itm), "Envelope", true);
+                xmlDocument.Save($"CATELOG_{itm.SRN}.xml");
+                xmlDocument = null;
+            }
         }
     }
 }

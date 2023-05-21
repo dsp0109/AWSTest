@@ -55,6 +55,22 @@
             "AWSSDK.SQS": {
               "target": "Package",
               "version": "[3.7.101, )"
+            },
+            "Hangfire": {
+              "target": "Package",
+              "version": "[1.8.0, )"
+            },
+            "Hangfire.Core": {
+              "target": "Package",
+              "version": "[1.8.0, )"
+            },
+            "Hangfire.InMemory": {
+              "target": "Package",
+              "version": "[0.4.0, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             }
           },
           "imports": [
@@ -76,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -128,6 +144,10 @@
               "target": "Package",
               "version": "[3.7.104.11, )"
             },
+            "Hangfire.Core": {
+              "target": "Package",
+              "version": "[1.8.0, )"
+            },
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
               "version": "[7.0.0, )"
@@ -153,7 +173,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -218,7 +238,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
