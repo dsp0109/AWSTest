@@ -7,5 +7,7 @@ namespace SQS_ServiceLib.BusinessLogic
         Task<bool> RegisterScheduler();
 
         Task<IEnumerable<Func<IServiceProvider, IMasterdataFileHandler>>> GetJobs();
+
+        Task<bool> RegisterSchedulerNormal(CancellationToken stoppingToken);
     }
 }

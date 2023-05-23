@@ -5,13 +5,13 @@ using System.Data;
 
 namespace SQS_ServiceLib.Handler
 {
-    public class CatelogFileHandler : IMasterdataFileHandler
+    public class CatelogFileHandler1 : IMasterdataFileHandler
     {
         public static MasterDataType Type => MasterDataType.CATELOG;
 
-        public static List<string> CronScheduler => new List<string> { "*/1 * * * *", "0 0 * * 0" };
+        public static List<string> CronScheduler => new List<string> { "*/2 * * * *", "0 0 * * 0" };
 
-        public static List<long> ScheduleInMinutes => new List<long> { 1, 10080 };
+        public static List<long> ScheduleInMinutes => new List<long> { 2, 10080 };
 
         public static string JobId => MasterDataType.CATELOG.ToString();
 
@@ -33,7 +33,7 @@ namespace SQS_ServiceLib.Handler
             dt.Columns.Add(new DataColumn("Number"));
             dt.Columns.Add(new DataColumn("Address"));
 
-            dt.Rows.Add("DP",12, "251-1A CA");
+            dt.Rows.Add("DP", 12, "251-1A CA");
             dt.Rows.Add("DP1", 122, "251-1A CA1");
 
             //var serializer = dt.AsEnumerable().ToList().Select(x => new 
@@ -45,17 +45,18 @@ namespace SQS_ServiceLib.Handler
             //        }, 
             //    Address = x.Field<string?>("Address") 
             //}).ToList();
-            var serializer = dt.AsEnumerable().ToList().Select(x => new CatelogXML {
+            var serializer = dt.AsEnumerable().ToList().Select(x => new CatelogXML
+            {
                 SRN = "12562",
                 Name = x.Field<string?>("Name"),
                 Number = x.Field<string?>("Number"),
                 Address = x.Field<string?>("Address")
             });
 
-            foreach(var itm in serializer)
+            foreach (var itm in serializer)
             {
                 var xmlDocument = JsonConvert.DeserializeXmlNode(JsonConvert.SerializeObject(itm), "Envelope", true);
-                xmlDocument.Save($"CATELOG_{itm.SRN}.xml");
+                xmlDocument.Save($"CATELOG1_{itm.SRN}.xml");
                 xmlDocument = null;
             }
         }

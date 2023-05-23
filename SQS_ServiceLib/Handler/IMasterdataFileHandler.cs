@@ -9,6 +9,8 @@ namespace SQS_ServiceLib.Handler
 
         public static List<string> CronScheduler => throw new NotImplementedException();
 
+        public static List<long> ScheduleInMinutes => throw new NotImplementedException();
+
         public static string JobId => throw new NotImplementedException();
 
         Task HandleAsync();

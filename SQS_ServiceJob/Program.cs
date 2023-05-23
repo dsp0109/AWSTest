@@ -46,6 +46,7 @@ builder.Services.AddHangfire(confg => confg.UseInMemoryStorage()
 builder.Services.AddHangfireServer();
 builder.Services.AddTransient<IMasterdataProcessor, MasterdataProcessor>();
 builder.Services.AddScoped<CatelogFileHandler>();
+builder.Services.AddScoped<CatelogFileHandler1>();
 
 builder.Services.AddHealthChecks().AddCheck<MonitorHealth>("MonitorHealth");
 

@@ -3,6 +3,7 @@ using SQS_ServiceModel;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Hangfire;
+using Cronos;
 
 namespace SQS_ServiceLib.BusinessLogic
 {
@@ -22,6 +23,7 @@ namespace SQS_ServiceLib.BusinessLogic
                         Type = (MasterDataType)info.GetProperty(nameof(IMasterdataFileHandler.Type))!.GetValue(info)!,
                         Crons = (List<string>)info.GetProperty(nameof(IMasterdataFileHandler.CronScheduler))!.GetValue(info)!,
                         JobId = (string)info.GetProperty(nameof(IMasterdataFileHandler.JobId))!.GetValue(info)!,
+                        ScheduleInMinutes = (List<long>)info.GetProperty(nameof(IMasterdataFileHandler.ScheduleInMinutes))!.GetValue(info)!,
                         Handler = provider => (IMasterdataFileHandler)provider.GetRequiredService(info.AsType())
                     }
                 )!.ToList();
@@ -34,7 +36,7 @@ namespace SQS_ServiceLib.BusinessLogic
 
         public async Task<bool> RegisterScheduler()
         {
-            if(_handlers == null )
+            if (_handlers == null)
             {
                 return await Task.FromResult(false);
             }
@@ -43,13 +45,38 @@ namespace SQS_ServiceLib.BusinessLogic
             foreach (var handler in _handlers!)
             {
                 var multipleIniatorNo = 0;
-                foreach(var cron in handler.Crons)
+                foreach (var cron in handler.Crons)
                 {
                     multipleIniatorNo++;
                     //RecurringJob.RemoveIfExists($"{handler.JobId}_{multipleIniatorNo}");
                     RecurringJob.AddOrUpdate($"{handler.JobId}_{multipleIniatorNo}", () => handler.Handler(scope.ServiceProvider).HandleAsync(), cron);
                 }
             }
+
+            return await Task.FromResult(true);
+        }
+
+        public async Task<bool> RegisterSchedulerNormal(CancellationToken stoppingToken)
+        {
+            if (_handlers == null)
+            {
+                return await Task.FromResult(false);
+            }
+
+            Parallel.ForEach(_handlers, (job) =>
+            {
+                Parallel.ForEach(job.ScheduleInMinutes, async (executeInMinutes) =>
+                {
+                    using (var timer = new PeriodicTimer(TimeSpan.FromMinutes(executeInMinutes)))
+                    {
+                        while (await timer.WaitForNextTickAsync(stoppingToken))
+                        {
+                            using var scope = _serviceScopeFactory.CreateScope();
+                            await job.Handler((IServiceProvider)scope).HandleAsync();
+                        }
+                    }
+                });
+            });
 
             return await Task.FromResult(true);
         }
