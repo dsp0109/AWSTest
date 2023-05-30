@@ -2,6 +2,7 @@
 using SQS_ServiceModel;
 using SQS_ServiceModel.MasterdataXMLModel;
 using System.Data;
+using System.Xml.Serialization;
 
 namespace SQS_ServiceLib.Handler
 {
@@ -49,15 +50,39 @@ namespace SQS_ServiceLib.Handler
                 SRN = "12562",
                 Name = x.Field<string?>("Name"),
                 Number = x.Field<string?>("Number"),
-                Address = x.Field<string?>("Address")
+                Address = x.Field<string?>("Address"),
+                SmallModels = new List<SmallModel>
+                {
+                    new SmallModel
+                    {
+                        SmallName = "ABC"
+                    }
+                }
             });
 
             foreach(var itm in serializer)
             {
                 var xmlDocument = JsonConvert.DeserializeXmlNode(JsonConvert.SerializeObject(itm), "Envelope", true);
+                var xmlstring = SerializeToXml(itm);
                 xmlDocument.Save($"CATELOG_{itm.SRN}.xml");
                 xmlDocument = null;
             }
+        }
+
+        public string SerializeToXml(object input)
+        {
+            XmlSerializer ser = new XmlSerializer(input.GetType(), null, null, new XmlRootAttribute("Envelope"), null);
+            string result = string.Empty;
+
+            using (MemoryStream memStm = new MemoryStream())
+            {
+                ser.Serialize(memStm, input);
+
+                memStm.Position = 0;
+                result = new StreamReader(memStm).ReadToEnd();
+            }
+
+            return result;
         }
     }
 }

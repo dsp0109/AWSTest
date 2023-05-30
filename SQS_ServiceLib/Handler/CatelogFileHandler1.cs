@@ -11,7 +11,7 @@ namespace SQS_ServiceLib.Handler
 
         public static List<string> CronScheduler => new List<string> { "*/2 * * * *", "0 0 * * 0" };
 
-        public static List<long> ScheduleInMinutes => new List<long> { 2, 10080 };
+        public static List<long> ScheduleInMinutes => new List<long> { };// 2, 10080
 
         public static string JobId => MasterDataType.CATELOG.ToString();
 

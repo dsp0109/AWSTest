@@ -12,5 +12,12 @@ namespace SQS_ServiceModel.MasterdataXMLModel
         public string? Name { get; set; }
         public string? Number { get; set; }
         public string? Address { get; set; }
+
+        public List<SmallModel> SmallModels { get; set; }
+    }
+
+    public class SmallModel
+    {
+        public string SmallName { get; set; }
     }
 }

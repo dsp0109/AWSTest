@@ -65,17 +65,30 @@ namespace SQS_ServiceLib.BusinessLogic
 
             Parallel.ForEach(_handlers, (job) =>
             {
-                Parallel.ForEach(job.ScheduleInMinutes, async (executeInMinutes) =>
+                if(job.ScheduleInMinutes?.Any() ?? false)
                 {
-                    using (var timer = new PeriodicTimer(TimeSpan.FromMinutes(executeInMinutes)))
+                    Parallel.ForEach(job.ScheduleInMinutes, async (executeInMinutes) =>
                     {
-                        while (await timer.WaitForNextTickAsync(stoppingToken))
+                        using (var timer = new PeriodicTimer(TimeSpan.FromMinutes(executeInMinutes)))
                         {
+                            while (await timer.WaitForNextTickAsync(stoppingToken))
+                            {
+                                using var scope = _serviceScopeFactory.CreateScope();
+                                await job.Handler((IServiceProvider)scope).HandleAsync();
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    while (!stoppingToken.IsCancellationRequested)
+                    {
+                        Task.Run(async () => {
                             using var scope = _serviceScopeFactory.CreateScope();
                             await job.Handler((IServiceProvider)scope).HandleAsync();
-                        }
+                        }).Wait();
                     }
-                });
+                }
             });
 
             return await Task.FromResult(true);
