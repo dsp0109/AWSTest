@@ -11,10 +11,12 @@ namespace SQS_ServiceLib.DataAccess
         {
             var resultDataSet = new DataSet();
             using var con = new SqlConnection(_connectionString);
-            var command = new SqlCommand(sqlQuery, con);
-            command.CommandType = commandType;
-            
-            if(sqlParameters != null)
+            using var command = new SqlCommand(sqlQuery, con)
+            {
+                CommandType = commandType
+            };
+
+            if (sqlParameters != null)
             {
                 command.Parameters.AddRange(sqlParameters.ToArray());
             }
@@ -23,6 +25,20 @@ namespace SQS_ServiceLib.DataAccess
             sqlDataAdapter.Fill(resultDataSet);
 
             return resultDataSet;
+        }
+
+        public int ExecuteNonQuery(string sqlQuery, CommandType commandType, IEnumerable<SqlParameter>? sqlParameters = null)
+        {
+            using SqlConnection con = new(_connectionString);
+            using SqlCommand cmd = new(sqlQuery, con);
+            cmd.CommandType = commandType;
+
+            if (sqlParameters != null)
+            {
+                cmd.Parameters.AddRange(sqlParameters.ToArray());
+            }
+            con.Open();
+            return cmd.ExecuteNonQuery();
         }
     }
 }

@@ -11,5 +11,7 @@ namespace SQS_ServiceLib.DataAccess
     public interface IDalBase
     {
         DataSet GetDataSet(string sqlQuery, CommandType commandType, IEnumerable<SqlParameter>? sqlParameters = null);
+
+        int ExecuteNonQuery(string sqlQuery, CommandType commandType, IEnumerable<SqlParameter>? sqlParameters = null);
     }
 }
