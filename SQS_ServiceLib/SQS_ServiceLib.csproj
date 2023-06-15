@@ -22,4 +22,10 @@
     <Folder Include="SQL\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="XSDs\CATELOG.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

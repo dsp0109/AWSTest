@@ -9,6 +9,7 @@ using SQS_ServiceJob.Health;
 using SQS_ServiceJob.Jobs;
 using SQS_ServiceLib.BusinessLogic;
 using SQS_ServiceLib.Handler;
+using SQS_ServiceLib.Helper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,7 @@ builder.Services.AddSingleton<IAmazonS3>(x =>
     return new AmazonS3Client(credentials, RegionEndpoint.GetBySystemName(Convert.ToString(builder.Configuration.GetValue(typeof(string), "AWSCred:S3Bucket:Region"))));
 });
 builder.Services.AddTransient<IProcessFile, ProcessFile>();
+builder.Services.AddScoped<IXmlValidator, XmlValidator>();
 builder.Services.AddScoped<FileType1Handler>();
 builder.Services.AddScoped<FileType2Handler>();
 

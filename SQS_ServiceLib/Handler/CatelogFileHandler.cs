@@ -1,7 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.VisualBasic;
+using Newtonsoft.Json;
+using SQS_ServiceLib.Helper;
 using SQS_ServiceModel;
 using SQS_ServiceModel.MasterdataXMLModel;
 using System.Data;
+using System.Text;
 using System.Xml.Serialization;
 
 namespace SQS_ServiceLib.Handler
@@ -16,6 +19,11 @@ namespace SQS_ServiceLib.Handler
 
         public static string JobId => MasterDataType.CATELOG.ToString();
 
+        private readonly IXmlValidator _xmlValidator;
+        public CatelogFileHandler(IXmlValidator xmlValidator)
+        {
+            _xmlValidator = xmlValidator;
+        }
         public async Task HandleAsync()
         {
             // To Do -
@@ -65,6 +73,11 @@ namespace SQS_ServiceLib.Handler
                 var xmlDocument = JsonConvert.DeserializeXmlNode(JsonConvert.SerializeObject(itm), "Envelope", true);
                 var xmlstring = SerializeToXml(itm);
                 xmlDocument.Save($"CATELOG_{itm.SRN}.xml");
+
+                var path = new Uri(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!)?.LocalPath;
+                Stream streamData = new MemoryStream(Encoding.UTF8.GetBytes(xmlDocument.OuterXml));
+                var errors = _xmlValidator.ValidateXml(streamData, $"{path}\\XSDs\\{JobId}.xsd");
+
                 xmlDocument = null;
             }
         }
