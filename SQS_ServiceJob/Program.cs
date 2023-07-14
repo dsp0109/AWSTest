@@ -3,6 +3,8 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.SQS;
 using Hangfire;
+using Hangfire.Server;
+using Microsoft.Extensions.Hosting.WindowsServices;
 using Serilog;
 using SQS_ServiceJob.Filters;
 using SQS_ServiceJob.Health;
@@ -11,7 +13,12 @@ using SQS_ServiceLib.BusinessLogic;
 using SQS_ServiceLib.Handler;
 using SQS_ServiceLib.Helper;
 
-var builder = WebApplication.CreateBuilder(args);
+var options = new WebApplicationOptions
+{
+    Args = args,
+    ContentRootPath = WindowsServiceHelpers.IsWindowsService() ? AppContext.BaseDirectory : default,
+};
+var builder = WebApplication.CreateBuilder(options);
 
 // Add services to the container.
 
@@ -51,6 +58,11 @@ builder.Services.AddScoped<CatelogFileHandler>();
 builder.Services.AddScoped<CatelogFileHandler1>();
 
 builder.Services.AddHealthChecks().AddCheck<MonitorHealth>("MonitorHealth");
+
+builder.Host.UseWindowsService().ConfigureServices((hostContext, services) =>
+{
+    services.AddHostedService<MasterdataSchedulerJobNormal>();
+});
 
 var app = builder.Build();
 

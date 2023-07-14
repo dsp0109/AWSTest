@@ -13,6 +13,8 @@ namespace SQS_ServiceLib.BusinessLogic
 
         public List<long> ScheduleInMinutes { get; set; }
 
+        public List<string> RunWithCrons { get; set; }
+
         public string JobId { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualBasic;
+﻿using Amazon.Runtime.Internal.Util;
+using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using SQS_ServiceLib.Helper;
 using SQS_ServiceModel;
@@ -13,16 +15,22 @@ namespace SQS_ServiceLib.Handler
     {
         public static MasterDataType Type => MasterDataType.CATELOG;
 
-        public static List<string> CronScheduler => new List<string> { "*/1 * * * *", "0 0 * * 0" };
+        public static List<string> CronScheduler => new List<string> { "*/1 * * * *", "45 15 * * 5" };
 
         public static List<long> ScheduleInMinutes => new List<long> { 1, 10080 };
+
+        public static List<string> RunWithCrons => new List<string> {  "35 16 * * 5" };
 
         public static string JobId => MasterDataType.CATELOG.ToString();
 
         private readonly IXmlValidator _xmlValidator;
-        public CatelogFileHandler(IXmlValidator xmlValidator)
+
+        private readonly ILogger<CatelogFileHandler> _logger;
+
+        public CatelogFileHandler(IXmlValidator xmlValidator, ILogger<CatelogFileHandler> logger)
         {
             _xmlValidator = xmlValidator;
+            _logger = logger;
         }
         public async Task HandleAsync()
         {
@@ -31,6 +39,7 @@ namespace SQS_ServiceLib.Handler
             // 2. Do Some mssaging on the data
             // 3. Convert data to XML
             // 4. create and upload XML file on s3 blob
+            _logger.LogError("Executing Job");
             GenerateFile();
             await Task.CompletedTask;
         }
@@ -74,7 +83,7 @@ namespace SQS_ServiceLib.Handler
                 var xmlstring = SerializeToXml(itm);
                 xmlDocument.Save($"CATELOG_{itm.SRN}.xml");
 
-                var path = new Uri(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!)?.LocalPath;
+                var path = new Uri(Path.GetDirectoryName(Environment.ProcessPath)!)?.LocalPath;
                 Stream streamData = new MemoryStream(Encoding.UTF8.GetBytes(xmlDocument.OuterXml));
                 var errors = _xmlValidator.ValidateXml(streamData, $"{path}\\XSDs\\{JobId}.xsd");
 

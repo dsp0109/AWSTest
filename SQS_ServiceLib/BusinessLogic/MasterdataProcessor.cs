@@ -4,6 +4,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Hangfire;
 using Cronos;
+using SQS_ServiceLib.Helper;
 
 namespace SQS_ServiceLib.BusinessLogic
 {
@@ -24,6 +25,7 @@ namespace SQS_ServiceLib.BusinessLogic
                         Crons = (List<string>)info.GetProperty(nameof(IMasterdataFileHandler.CronScheduler))!.GetValue(info)!,
                         JobId = (string)info.GetProperty(nameof(IMasterdataFileHandler.JobId))!.GetValue(info)!,
                         ScheduleInMinutes = (List<long>)info.GetProperty(nameof(IMasterdataFileHandler.ScheduleInMinutes))!.GetValue(info)!,
+                        RunWithCrons = (List<string>)info.GetProperty(nameof(IMasterdataFileHandler.RunWithCrons))!.GetValue(info)!,
                         Handler = provider => (IMasterdataFileHandler)provider.GetRequiredService(info.AsType())
                     }
                 )!.ToList();
@@ -65,11 +67,19 @@ namespace SQS_ServiceLib.BusinessLogic
 
             Parallel.ForEach(_handlers, (job) =>
             {
-                if(job.ScheduleInMinutes?.Any() ?? false)
+                if(job.RunWithCrons?.Any() ?? false)
                 {
-                    Parallel.ForEach(job.ScheduleInMinutes, async (executeInMinutes) =>
+                    Parallel.ForEach(job.RunWithCrons, async (cron) =>
                     {
-                        using (var timer = new PeriodicTimer(TimeSpan.FromMinutes(executeInMinutes)))
+                        //using (var timer = new PeriodicTimer(TimeSpan.FromMinutes(executeInMinutes)))
+                        //{
+                        //    while (await timer.WaitForNextTickAsync(stoppingToken))
+                        //    {
+                        //        using var scope = _serviceScopeFactory.CreateScope();
+                        //        await job.Handler((IServiceProvider)scope).HandleAsync();
+                        //    }
+                        //}
+                        using (var timer = new CronosPeriodicTimer(cron, CronFormat.Standard))
                         {
                             while (await timer.WaitForNextTickAsync(stoppingToken))
                             {

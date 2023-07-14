@@ -90,6 +90,11 @@ namespace SQS_ServiceLib.BusinessLogic
             return await Task.FromResult(true);
         }
 
+        //public async Task<IEnumerable<MasterDataType>> GetOnDemandJobsToExecute()
+        //{
+        //    var 
+        //}
+
         private FileType? GetFileTypeFromName(string fileName)
         {
             return _fileNameTypeMapping.Where(x => fileName.StartsWith(x.Key))?.FirstOrDefault().Value;

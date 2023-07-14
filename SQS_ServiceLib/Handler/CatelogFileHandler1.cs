@@ -13,6 +13,8 @@ namespace SQS_ServiceLib.Handler
 
         public static List<long> ScheduleInMinutes => new List<long> { };// 2, 10080
 
+        public static List<string> RunWithCrons => new List<string> {  };
+
         public static string JobId => MasterDataType.CATELOG.ToString();
 
         public async Task HandleAsync()

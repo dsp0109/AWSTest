@@ -13,6 +13,7 @@
     <PackageReference Include="Hangfire" Version="1.8.0" />
     <PackageReference Include="Hangfire.Core" Version="1.8.0" />
     <PackageReference Include="Hangfire.InMemory" Version="0.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
   </ItemGroup>
 
@@ -22,6 +23,18 @@
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="INSTALL_SQS_Service.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\launchSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="UN_INSTALL_SQS_Service.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

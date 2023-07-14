@@ -4,8 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\TFS\TESTSQSDEPLOY</_PublishTargetUrl>
-    <History>True|2023-05-22T17:11:59.2678937Z;True|2023-05-22T22:30:52.3587122+05:30;True|2023-05-22T22:29:20.9365337+05:30;True|2023-05-22T22:27:07.8245636+05:30;True|2023-05-10T16:05:55.2813753+05:30;</History>
+    <_PublishTargetUrl>C:\TFS\OTHER APPLICATIONS\SQS_Service\SQS_ServiceJob\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2023-07-07T06:16:34.2428560Z;True|2023-07-07T11:37:35.8613902+05:30;True|2023-06-21T12:41:56.5988387+05:30;True|2023-06-21T12:34:26.1759098+05:30;True|2023-06-21T11:27:41.0448255+05:30;True|2023-06-21T11:15:00.2324053+05:30;True|2023-06-21T11:03:18.1335886+05:30;True|2023-06-21T10:15:34.1308600+05:30;True|2023-06-21T09:49:23.7350430+05:30;True|2023-06-20T12:39:36.0761672+05:30;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

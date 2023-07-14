@@ -1,7 +1,9 @@
 ﻿using Amazon.SQS;
 using Amazon.SQS.Model;
 using SQS_ServiceLib.BusinessLogic;
+using SQS_ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SQS_ServiceJob.Jobs
 {
@@ -15,6 +17,8 @@ namespace SQS_ServiceJob.Jobs
         private readonly string? _inboundS3BucketName;
         private readonly IProcessFile _processFile;
 
+        private readonly Dictionary<FileType, string> handlerIdentifier;
+
         public OutboundMessageWatcherJob(IAmazonSQS sqs, IConfiguration config, ILogger<OutboundMessageWatcherJob> logger, IProcessFile processFile)
         {
             _sqs = sqs;
@@ -24,6 +28,9 @@ namespace SQS_ServiceJob.Jobs
             _outboundS3BucketName = Convert.ToString(_config!.GetValue(typeof(string), "AWSCred:S3Bucket:OutboundBucketName"));
             _inboundS3BucketName = Convert.ToString(_config!.GetValue(typeof(string), "AWSCred:S3Bucket:InboundBucketName"));
             _processFile = processFile;
+
+            handlerIdentifier = new Dictionary<FileType, string>();
+            handlerIdentifier.Add(FileType.FILE_TYPE_1, "^INBOUND.*\\.(xml|XML)$");
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -46,6 +53,21 @@ namespace SQS_ServiceJob.Jobs
 
                     foreach (var message in messageResponse!.Messages)
                     {
+                        var fileTypeeHandler = handlerIdentifier.Where(x => Regex.IsMatch(message.Body, x.Value)).FirstOrDefault();
+                        if (handlerIdentifier.TryGetValue((FileType)Enum.Parse(typeof(FileType), message.Body), out string? regexPattern))
+                        {
+                            if (!Regex.IsMatch(message.Body, regexPattern))
+                            {
+                                _logger.LogInformation($"{nameof(OutboundMessageWatcherJob)} File is not supported for processing.");
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            _logger.LogInformation($"{nameof(OutboundMessageWatcherJob)} File is not supported for processing.");
+                            continue;
+                        }   
+
                         #region File Processing 
                         var fileDetails = await _processFile.GetFileData(_outboundS3BucketName!, message.Body, stoppingToken);
                         if (fileDetails == null)

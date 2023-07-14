@@ -11,6 +11,8 @@ namespace SQS_ServiceLib.Handler
 
         public static List<long> ScheduleInMinutes => throw new NotImplementedException();
 
+        public List<string> RunWithCrons => throw new NotImplementedException();
+
         public static string JobId => throw new NotImplementedException();
 
         Task HandleAsync();

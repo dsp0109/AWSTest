@@ -1,0 +1,86 @@
+[2023-05-25 19:24:45 490 +05:30  INF  Now listening on: http://localhost:5068 Exception -  ]
+[2023-05-25 19:24:45 709 +05:30  INF  Starting Hangfire Server using job storage: 'In-Memory Storage' Exception -  ]
+[2023-05-25 19:24:45 713 +05:30  INF  Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 Exception -  ]
+[2023-05-25 19:24:46 508 +05:30  INF  Server ilpt2699:28128:2cb7d610 successfully announced in 9.9245 ms Exception -  ]
+[2023-05-25 19:24:46 529 +05:30  INF  Server ilpt2699:28128:2cb7d610 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, Worker, DelayedJobScheduler, RecurringJobScheduler... Exception -  ]
+[2023-05-25 19:24:46 532 +05:30  INF  Application started. Press Ctrl+C to shut down. Exception -  ]
+[2023-05-25 19:24:46 544 +05:30  INF  Hosting environment: Development Exception -  ]
+[2023-05-25 19:24:46 549 +05:30  INF  Content root path: C:\TFS\OTHER APPLICATIONS\SQS_Service\SQS_ServiceJob\ Exception -  ]
+[2023-05-25 19:24:46 820 +05:30  INF  Server ilpt2699:28128:2cb7d610 all the dispatchers started Exception -  ]
+[2023-05-25 19:24:47 781 +05:30  INF  Request starting HTTP/1.1 GET http://localhost:5068/default - - Exception -  ]
+[2023-05-25 19:24:48 196 +05:30  INF  Executing endpoint 'SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob)' Exception -  ]
+[2023-05-25 19:24:48 332 +05:30  INF  Route matched with {action = "Get", controller = "Default"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] Get() on controller SQS_ServiceJob.Controllers.DefaultController (SQS_ServiceJob). Exception -  ]
+[2023-05-25 19:24:48 346 +05:30  INF  Service Started... Exception -  ]
+[2023-05-25 19:24:48 373 +05:30  INF  Executing ObjectResult, writing value of type 'System.String'. Exception -  ]
+[2023-05-25 19:24:48 543 +05:30  INF  Executed action SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob) in 192.6415ms Exception -  ]
+[2023-05-25 19:24:48 549 +05:30  INF  Executed endpoint 'SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob)' Exception -  ]
+[2023-05-25 19:24:48 563 +05:30  INF  Request finished HTTP/1.1 GET http://localhost:5068/default - - - 200 - text/plain;+charset=utf-8 787.1442ms Exception -  ]
+[2023-05-25 19:24:50 488 +05:30  INF  Request starting HTTP/1.1 GET http://localhost:5068/favicon.ico - - Exception -  ]
+[2023-05-25 19:24:50 491 +05:30  INF  Request finished HTTP/1.1 GET http://localhost:5068/favicon.ico - - - 404 0 - 2.7378ms Exception -  ]
+[2023-05-25 20:31:08 248 +05:30  INF  Now listening on: http://localhost:5068 Exception -  ]
+[2023-05-25 20:31:08 330 +05:30  INF  Starting Hangfire Server using job storage: 'In-Memory Storage' Exception -  ]
+[2023-05-25 20:31:08 332 +05:30  INF  Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 Exception -  ]
+[2023-05-25 20:31:08 381 +05:30  INF  Server ilpt2699:17444:a2489e65 successfully announced in 3.9372 ms Exception -  ]
+[2023-05-25 20:31:08 389 +05:30  INF  Server ilpt2699:17444:a2489e65 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, Worker, DelayedJobScheduler, RecurringJobScheduler... Exception -  ]
+[2023-05-25 20:31:08 427 +05:30  INF  Application started. Press Ctrl+C to shut down. Exception -  ]
+[2023-05-25 20:31:08 452 +05:30  INF  Server ilpt2699:17444:a2489e65 all the dispatchers started Exception -  ]
+[2023-05-25 20:31:08 452 +05:30  INF  Hosting environment: Development Exception -  ]
+[2023-05-25 20:31:08 454 +05:30  INF  Content root path: C:\TFS\OTHER APPLICATIONS\SQS_Service\SQS_ServiceJob\ Exception -  ]
+[2023-05-25 20:31:14 860 +05:30  INF  Request starting HTTP/1.1 GET http://localhost:5068/default - - Exception -  ]
+[2023-05-25 20:31:15 027 +05:30  INF  Executing endpoint 'SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob)' Exception -  ]
+[2023-05-25 20:31:15 122 +05:30  INF  Route matched with {action = "Get", controller = "Default"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] Get() on controller SQS_ServiceJob.Controllers.DefaultController (SQS_ServiceJob). Exception -  ]
+[2023-05-25 20:31:15 132 +05:30  INF  Service Started... Exception -  ]
+[2023-05-25 20:31:15 153 +05:30  INF  Executing ObjectResult, writing value of type 'System.String'. Exception -  ]
+[2023-05-25 20:31:16 495 +05:30  INF  Executed action SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob) in 1363.9592ms Exception -  ]
+[2023-05-25 20:31:16 498 +05:30  INF  Executed endpoint 'SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob)' Exception -  ]
+[2023-05-25 20:31:16 508 +05:30  INF  Request finished HTTP/1.1 GET http://localhost:5068/default - - - 200 - text/plain;+charset=utf-8 1649.6195ms Exception -  ]
+[2023-05-25 20:36:27 590 +05:30  INF  Now listening on: http://localhost:5068 Exception -  ]
+[2023-05-25 20:36:27 641 +05:30  INF  Starting Hangfire Server using job storage: 'In-Memory Storage' Exception -  ]
+[2023-05-25 20:36:27 643 +05:30  INF  Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 Exception -  ]
+[2023-05-25 20:36:27 699 +05:30  INF  Server ilpt2699:7916:5df54cd6 successfully announced in 3.3386 ms Exception -  ]
+[2023-05-25 20:36:27 711 +05:30  INF  Server ilpt2699:7916:5df54cd6 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, Worker, DelayedJobScheduler, RecurringJobScheduler... Exception -  ]
+[2023-05-25 20:36:27 737 +05:30  INF  Application started. Press Ctrl+C to shut down. Exception -  ]
+[2023-05-25 20:36:27 771 +05:30  INF  Hosting environment: Development Exception -  ]
+[2023-05-25 20:36:27 785 +05:30  INF  Content root path: C:\TFS\OTHER APPLICATIONS\SQS_Service\SQS_ServiceJob\ Exception -  ]
+[2023-05-25 20:36:27 812 +05:30  INF  Server ilpt2699:7916:5df54cd6 all the dispatchers started Exception -  ]
+[2023-05-25 20:36:28 984 +05:30  INF  Request starting HTTP/1.1 GET http://localhost:5068/default - - Exception -  ]
+[2023-05-25 20:36:29 139 +05:30  INF  Executing endpoint 'SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob)' Exception -  ]
+[2023-05-25 20:36:29 231 +05:30  INF  Route matched with {action = "Get", controller = "Default"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] Get() on controller SQS_ServiceJob.Controllers.DefaultController (SQS_ServiceJob). Exception -  ]
+[2023-05-25 20:36:29 240 +05:30  INF  Service Started... Exception -  ]
+[2023-05-25 20:36:29 263 +05:30  INF  Executing ObjectResult, writing value of type 'System.String'. Exception -  ]
+[2023-05-25 20:36:29 322 +05:30  INF  Executed action SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob) in 80.6813ms Exception -  ]
+[2023-05-25 20:36:29 328 +05:30  INF  Executed endpoint 'SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob)' Exception -  ]
+[2023-05-25 20:36:29 337 +05:30  INF  Request finished HTTP/1.1 GET http://localhost:5068/default - - - 200 - text/plain;+charset=utf-8 356.1063ms Exception -  ]
+[2023-05-25 20:39:54 200 +05:30  INF  Now listening on: http://localhost:5068 Exception -  ]
+[2023-05-25 20:39:54 338 +05:30  INF  Starting Hangfire Server using job storage: 'In-Memory Storage' Exception -  ]
+[2023-05-25 20:39:54 341 +05:30  INF  Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 Exception -  ]
+[2023-05-25 20:39:54 433 +05:30  INF  Server ilpt2699:35080:12f2bf6a successfully announced in 6.1044 ms Exception -  ]
+[2023-05-25 20:39:54 449 +05:30  INF  Server ilpt2699:35080:12f2bf6a is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, Worker, DelayedJobScheduler, RecurringJobScheduler... Exception -  ]
+[2023-05-25 20:39:54 474 +05:30  INF  Application started. Press Ctrl+C to shut down. Exception -  ]
+[2023-05-25 20:39:54 505 +05:30  INF  Hosting environment: Development Exception -  ]
+[2023-05-25 20:39:54 522 +05:30  INF  Content root path: C:\TFS\OTHER APPLICATIONS\SQS_Service\SQS_ServiceJob\ Exception -  ]
+[2023-05-25 20:39:54 576 +05:30  INF  Server ilpt2699:35080:12f2bf6a all the dispatchers started Exception -  ]
+[2023-05-25 20:39:55 675 +05:30  INF  Request starting HTTP/1.1 GET http://localhost:5068/default - - Exception -  ]
+[2023-05-25 20:39:55 866 +05:30  INF  Executing endpoint 'SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob)' Exception -  ]
+[2023-05-25 20:39:56 005 +05:30  INF  Route matched with {action = "Get", controller = "Default"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] Get() on controller SQS_ServiceJob.Controllers.DefaultController (SQS_ServiceJob). Exception -  ]
+[2023-05-25 20:39:56 020 +05:30  INF  Service Started... Exception -  ]
+[2023-05-25 20:39:56 050 +05:30  INF  Executing ObjectResult, writing value of type 'System.String'. Exception -  ]
+[2023-05-25 20:39:56 129 +05:30  INF  Executed action SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob) in 109.8895ms Exception -  ]
+[2023-05-25 20:39:56 133 +05:30  INF  Executed endpoint 'SQS_ServiceJob.Controllers.DefaultController.Get (SQS_ServiceJob)' Exception -  ]
+[2023-05-25 20:39:56 146 +05:30  INF  Request finished HTTP/1.1 GET http://localhost:5068/default - - - 200 - text/plain;+charset=utf-8 474.9588ms Exception -  ]
